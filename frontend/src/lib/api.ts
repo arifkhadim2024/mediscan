@@ -52,9 +52,16 @@ async function handleResponse<T>(res: Response): Promise<T> {
   return payload.data;
 }
 
+const getUrl = (path: string) => {
+  if (typeof window !== "undefined" && window.location.hostname === "localhost") {
+    return `http://localhost:5001/api${path}`;
+  }
+  return `/api${path}`;
+};
+
 export const api = {
   async get<T>(path: string): Promise<T> {
-    const res = await fetch(`/api${path}`, {
+    const res = await fetch(getUrl(path), {
       method: "GET",
       headers: getHeaders(),
     });
@@ -62,7 +69,7 @@ export const api = {
   },
 
   async post<T>(path: string, body: unknown): Promise<T> {
-    const res = await fetch(`/api${path}`, {
+    const res = await fetch(getUrl(path), {
       method: "POST",
       headers: getHeaders(),
       body: JSON.stringify(body),
@@ -71,7 +78,7 @@ export const api = {
   },
 
   async delete<T>(path: string): Promise<T> {
-    const res = await fetch(`/api${path}`, {
+    const res = await fetch(getUrl(path), {
       method: "DELETE",
       headers: getHeaders(),
     });
@@ -81,7 +88,7 @@ export const api = {
   async upload<T>(path: string, file: File, fieldName = "prescription"): Promise<T> {
     const formData = new FormData();
     formData.append(fieldName, file);
-    const res = await fetch(`/api${path}`, {
+    const res = await fetch(getUrl(path), {
       method: "POST",
       headers: getHeaders(true),
       body: formData,
