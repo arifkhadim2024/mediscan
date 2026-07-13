@@ -1,4 +1,5 @@
 import { createFileRoute, Outlet, redirect } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/components/site/dashboard-sidebar";
 import { ThemeToggle } from "@/components/site/theme-toggle";
@@ -18,13 +19,16 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 function DashboardLayout() {
-  const user = api.getUser();
-  const getInitials = (name?: string) => {
-    if (!name) return "U";
-    const parts = name.split(" ");
-    return parts.map((p) => p[0]).join("").toUpperCase().slice(0, 2);
-  };
-  const initials = getInitials(user?.name);
+  const [initials, setInitials] = useState("U");
+
+  useEffect(() => {
+    const user = api.getUser();
+    if (user?.name) {
+      const parts = user.name.split(" ");
+      const ini = parts.map((p) => p[0]).join("").toUpperCase().slice(0, 2);
+      setInitials(ini);
+    }
+  }, []);
 
   return (
     <SidebarProvider>
