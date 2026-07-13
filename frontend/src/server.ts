@@ -112,6 +112,17 @@ apiRouter.get("/api/prescription/:id", defineEventHandler(async (event) => {
   return { success: true, message: "Prescription fetched successfully", data: result };
 }));
 
+apiRouter.get("/api/test-env", defineEventHandler((event) => {
+  const key = process.env.GEMINI_API_KEY || "";
+  return {
+    success: true,
+    GEMINI_API_KEY_PRESENT: !!key,
+    GEMINI_API_KEY_VAL: key ? `${key.slice(0, 5)}...${key.slice(-5)}` : "missing",
+    GEMINI_API_KEY_LEN: key.length,
+    VERCEL: process.env.VERCEL,
+  };
+}));
+
 // Medicine API endpoints
 apiRouter.get("/api/medicine/prices", defineEventHandler(async (event) => {
   const query = getQuery(event);
