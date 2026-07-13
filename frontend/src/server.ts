@@ -8,7 +8,20 @@ import { uploadPrescription, analyzePrescription, getPrescriptionHistory, delete
 import { supabase } from "./backend/config/supabase.js";
 
 // Setup a pure H3 app and router to handle the API endpoints natively
-const apiApp = createApp();
+const apiApp = createApp({
+  onError(error, event) {
+    const statusCode = error.statusCode || 500;
+    const message = error.message || 'Internal server error';
+    
+    event.node.res.statusCode = statusCode;
+    event.node.res.setHeader("Content-Type", "application/json");
+    event.node.res.end(JSON.stringify({
+      success: false,
+      message,
+      errors: [message],
+    }));
+  }
+});
 const apiRouter = createRouter();
 
 // Helper to authenticate request using Supabase auth token
