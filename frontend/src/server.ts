@@ -55,6 +55,18 @@ export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     const url = new URL(request.url);
     
+    // DEBUG ENDPOINT
+    if (url.pathname.includes("login")) {
+      return new Response(JSON.stringify({
+        pathname: url.pathname,
+        url: request.url,
+        headers: Object.fromEntries(request.headers.entries())
+      }), {
+        status: 200,
+        headers: { "content-type": "application/json" }
+      });
+    }
+
     // Intercept any requests to /api and process them using the Express backend
     if (url.pathname.startsWith("/api")) {
       return apiHandler(request, env, ctx);
