@@ -2,7 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
-import { createApp, createRouter, defineEventHandler, readBody, getQuery, createError, readMultipartFormData, toWebHandler, setResponseHeader, setResponseStatus } from "h3";
+import { createApp, createRouter, defineEventHandler, readBody, getQuery, createError, readMultipartFormData, toWebHandler, setResponseHeader, setResponseStatus, getHeader } from "h3";
 import { registerUser, loginUser } from "./backend/services/authService.js";
 import { uploadPrescription, analyzePrescription, getPrescriptionHistory, deletePrescription, getMedicinePrices } from "./backend/services/prescriptionService.js";
 import { supabase } from "./backend/config/supabase.js";
@@ -27,7 +27,7 @@ const apiRouter = createRouter();
 
 // Helper to authenticate request using Supabase auth token
 async function getAuthUser(event: any) {
-  const authHeader = event.node.req.headers.authorization;
+  const authHeader = getHeader(event, 'authorization');
   const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
   
   if (!token) {
