@@ -3,7 +3,7 @@ import "./lib/error-capture";
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { createApp, fromNodeMiddleware, toWebHandler } from "h3";
-import expressApp from "../../backend/src/app.js";
+import expressApp from "./backend/app.js";
 
 // Setup an H3 app to run the Node Express backend
 const apiApp = createApp();
