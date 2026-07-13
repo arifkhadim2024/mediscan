@@ -1,0 +1,1 @@
+import{t as e}from"./jsx-runtime-CZcjcDnw.js";import{t}from"./useRouter-B7YGYrEu.js";import{t as n}from"./button-uPCTxGGr.js";var r=e(),i=({reset:e})=>{let i=t();return(0,r.jsxs)(`div`,{className:`p-8`,children:[(0,r.jsx)(`p`,{children:`Something went wrong.`}),(0,r.jsx)(n,{onClick:()=>{i.invalidate(),e()},children:`Retry`})]})};export{i as errorComponent};
