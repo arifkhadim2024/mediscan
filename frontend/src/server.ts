@@ -2,12 +2,104 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
-import { createApp, fromNodeMiddleware, toWebHandler } from "h3";
-import expressApp from "./backend/app.js";
+import { createApp, createRouter, defineEventHandler, readBody, getQuery, createError, readMultipartFormData, toWebHandler } from "h3";
+import { registerUser, loginUser } from "./backend/services/authService.js";
+import { uploadPrescription, analyzePrescription, getPrescriptionHistory, deletePrescription, getMedicinePrices } from "./backend/services/prescriptionService.js";
+import { supabase } from "./backend/config/supabase.js";
 
-// Setup an H3 app to run the Node Express backend
+// Setup a pure H3 app and router to handle the API endpoints natively
 const apiApp = createApp();
-apiApp.use(fromNodeMiddleware(expressApp));
+const apiRouter = createRouter();
+
+// Helper to authenticate request using Supabase auth token
+async function getAuthUser(event: any) {
+  const authHeader = event.node.req.headers.authorization;
+  const token = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+  
+  if (!token) {
+    throw createError({ statusCode: 401, statusMessage: "Authentication token missing" });
+  }
+  
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+  if (error || !user) {
+    throw createError({ statusCode: 401, statusMessage: error?.message || "Invalid or expired token" });
+  }
+  
+  return {
+    _id: user.id,
+    id: user.id,
+    email: user.email,
+    name: user.user_metadata?.name || 'User',
+  };
+}
+
+// Auth API endpoints
+apiRouter.post("/api/auth/register", defineEventHandler(async (event) => {
+  const body = await readBody(event);
+  const result = await registerUser(body);
+  return { success: true, message: "User registered successfully", data: result };
+}));
+
+apiRouter.post("/api/auth/login", defineEventHandler(async (event) => {
+  const body = await readBody(event);
+  const result = await loginUser(body);
+  return { success: true, message: "Login successful", data: result };
+}));
+
+apiRouter.get("/api/auth/profile", defineEventHandler(async (event) => {
+  const user = await getAuthUser(event);
+  return { success: true, message: "Profile fetched successfully", data: { user } };
+}));
+
+// Prescription API endpoints
+apiRouter.post("/api/prescription/upload", defineEventHandler(async (event) => {
+  const user = await getAuthUser(event);
+  const parts = await readMultipartFormData(event);
+  const filePart = parts?.find(p => p.name === "prescription");
+  
+  if (!filePart) {
+    throw createError({ statusCode: 400, statusMessage: "No file uploaded" });
+  }
+  
+  const file = {
+    originalname: filePart.filename,
+    mimetype: filePart.type,
+    buffer: filePart.data
+  };
+  
+  const result = await uploadPrescription({ userId: user._id, file });
+  return { success: true, message: "Prescription uploaded successfully", data: result };
+}));
+
+apiRouter.post("/api/prescription/analyze", defineEventHandler(async (event) => {
+  const user = await getAuthUser(event);
+  const body = await readBody(event);
+  const result = await analyzePrescription({ prescriptionId: body.prescriptionId, userId: user._id });
+  return { success: true, message: "Prescription analyzed successfully", data: result };
+}));
+
+apiRouter.get("/api/prescription/history", defineEventHandler(async (event) => {
+  const user = await getAuthUser(event);
+  const result = await getPrescriptionHistory(user._id);
+  return { success: true, message: "Prescription history fetched successfully", data: result };
+}));
+
+apiRouter.delete("/api/prescription/:id", defineEventHandler(async (event) => {
+  const user = await getAuthUser(event);
+  const id = event.context.params?.id;
+  const result = await deletePrescription({ prescriptionId: id, userId: user._id });
+  return { success: true, message: "Prescription deleted successfully", data: result };
+}));
+
+// Medicine API endpoints
+apiRouter.get("/api/medicine/prices", defineEventHandler(async (event) => {
+  const query = getQuery(event);
+  const medicine = query.medicine as string || "Aspirin";
+  const result = await getMedicinePrices(medicine);
+  return { success: true, message: "Medicine price comparison fetched successfully", data: result };
+}));
+
+apiApp.use(apiRouter);
 const apiHandler = toWebHandler(apiApp);
 
 type ServerEntry = {
@@ -60,7 +152,7 @@ export default {
       try {
         return await apiHandler(request, env, ctx);
       } catch (err: any) {
-        console.error("API proxy handler error:", err);
+        console.error("API handler error:", err);
         return new Response(JSON.stringify({
           error: true,
           message: err.message || "Internal Server Error"
@@ -84,4 +176,3 @@ export default {
     }
   },
 };
-
