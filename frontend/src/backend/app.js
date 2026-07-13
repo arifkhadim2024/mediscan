@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import path from 'node:path';
+import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
@@ -38,7 +39,11 @@ const limiter = rateLimit({
 });
 app.use('/api', limiter);
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+const uploadStaticDir = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'uploads')
+  : path.join(__dirname, 'uploads');
+
+app.use('/uploads', express.static(uploadStaticDir));
 
 app.get('/health', (req, res) => {
   sendSuccess(res, 'MediScan API is healthy', { status: 'ok' });
