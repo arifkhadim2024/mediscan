@@ -69,7 +69,18 @@ export default {
 
     // Intercept any requests to /api and process them using the Express backend
     if (url.pathname.startsWith("/api")) {
-      return apiHandler(request, env, ctx);
+      try {
+        return await apiHandler(request, env, ctx);
+      } catch (err: any) {
+        return new Response(JSON.stringify({
+          error: true,
+          message: err.message,
+          stack: err.stack
+        }), {
+          status: 500,
+          headers: { "content-type": "application/json" }
+        });
+      }
     }
 
     try {
