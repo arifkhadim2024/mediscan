@@ -39,46 +39,62 @@ function PrescriptionPage() {
     const fetchPrescription = async () => {
       try {
         const data = await api.get<any>(`/prescription/${id}`);
-        const isAnalyzed = data.aiAnalysis && Object.keys(data.aiAnalysis).length > 0;
+        const isAnalyzed = data.aiAnalysis && (Array.isArray(data.aiAnalysis) ? data.aiAnalysis.length > 0 : Object.keys(data.aiAnalysis).length > 0);
         
         const mappedMedicines: any[] = [];
-        if (isAnalyzed && data.aiAnalysis.medicineName) {
-          mappedMedicines.push({
-            id: data._id + "-med",
-            name: data.aiAnalysis.medicineName,
-            dosage: data.aiAnalysis.dosage || "As prescribed",
-            frequency: data.aiAnalysis.frequency || "1-0-1",
-            duration: data.aiAnalysis.duration || "N/A",
-            purpose: data.aiAnalysis.purpose || "Medical Treatment",
-            howToTake: data.aiAnalysis.beforeAfterFood || "As advised by doctor",
-            timing: data.aiAnalysis.timing || "Anytime",
-            sideEffects: data.aiAnalysis.possibleSideEffects || [],
-            warnings: data.aiAnalysis.warnings || [],
-            interactions: data.aiAnalysis.drugInteractions || [],
-            alternatives: data.aiAnalysis.alternativeMedicines || [],
-            description: `${data.aiAnalysis.genericName || data.aiAnalysis.medicineName} is used for ${data.aiAnalysis.purpose || 'treatment'}.`,
-            uses: [data.aiAnalysis.purpose || "Treatment"],
-            benefits: ["Effective relief"],
-            storage: "Store in a cool dry place.",
-            pregnancy: "Consult doctor.",
-            alcohol: "Avoid alcohol.",
-            driving: "Consult doctor.",
-            kidney: "Consult doctor.",
-            liver: "Consult doctor.",
-            foodInteractions: "No significant interaction.",
-            prices: [
-              { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: "https://www.amazon.in/pharmacy", logoColor: "#FF9900" },
-              { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: "https://www.1mg.com", logoColor: "#F97316" },
-              { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: "https://pharmeasy.in", logoColor: "#10B981" },
-            ]
-          });
-        }
+        const rawMedicines = isAnalyzed ? (Array.isArray(data.aiAnalysis) ? data.aiAnalysis : [data.aiAnalysis]) : [];
+        const firstAnalysis = rawMedicines[0];
+        
+        rawMedicines.forEach((med: any, idx: number) => {
+          if (med && med.medicineName) {
+            mappedMedicines.push({
+              id: `${data._id}-med-${idx}`,
+              name: med.medicineName,
+              dosage: med.dosage || "As prescribed",
+              frequency: med.frequency || "1-0-1",
+              duration: med.duration || "N/A",
+              purpose: med.purpose || "Medical Treatment",
+              howToTake: med.beforeAfterFood || "As advised by doctor",
+              timing: med.timing || "Anytime",
+              sideEffects: med.possibleSideEffects || [],
+              warnings: med.warnings || [],
+              interactions: med.drugInteractions || [],
+              alternatives: med.alternativeMedicines || [],
+              description: `${med.genericName || med.medicineName} is used for ${med.purpose || 'treatment'}.`,
+              uses: [med.purpose || "Treatment"],
+              benefits: ["Effective relief"],
+              storage: "Store in a cool dry place.",
+              pregnancy: "Consult doctor.",
+              alcohol: "Avoid alcohol.",
+              driving: "Consult doctor.",
+              kidney: "Consult doctor.",
+              liver: "Consult doctor.",
+              foodInteractions: "No significant interaction.",
+              prices: [
+                { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: "https://www.amazon.in/pharmacy", logoColor: "#FF9900" },
+                { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: "https://www.1mg.com", logoColor: "#F97316" },
+                { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: "https://pharmeasy.in", logoColor: "#10B981" },
+              ]
+            });
+          }
+        });
+
+        // Dynamic extractions from OCR text
+        const ocrPatientMatch = data.ocrText?.match(/(?:Mr\.|Mrs\.|Ms\.|Patient:)\s*([A-Za-z0-9_\s]{3,25})/i)?.[1]?.trim();
+        const patientName = ocrPatientMatch || (firstAnalysis?.patientAdvice ? "Patient" : "Rahul Sharma");
+
+        const ocrDoctorMatch = data.ocrText?.match(/(?:Dr\.|Doctor:)\s*([A-Za-z0-9_\s]{3,25})/i)?.[0]?.trim();
+        const doctorNotes = firstAnalysis?.doctorNotes || "";
+        const doctorName = ocrDoctorMatch || doctorNotes.match(/Dr\.\s*[A-Za-z0-9_]+/)?.[0] || doctorNotes || "Prescription Analysis";
+
+        const ocrHospitalMatch = data.ocrText?.match(/(?:Clinic|Hospital|Center|Medical)\b/i) ? data.ocrText.split("\n")[2]?.trim() : null;
+        const hospitalName = ocrHospitalMatch || (doctorNotes.includes("Hospital") ? doctorNotes : "MediScan AI Clinic");
 
         setRx({
           id: data._id,
-          doctor: data.aiAnalysis?.doctorNotes?.match(/Dr\.\s*[A-Za-z0-9_]+/)?.[0] || data.aiAnalysis?.doctorNotes || "Prescription Analysis",
-          patient: data.aiAnalysis?.patientAdvice ? "Patient" : "Rahul Sharma",
-          hospital: data.aiAnalysis?.doctorNotes?.includes("Hospital") ? data.aiAnalysis.doctorNotes : "MediScan AI Clinic",
+          doctor: doctorName,
+          patient: patientName,
+          hospital: hospitalName,
           date: data.createdAt ? data.createdAt.split("T")[0] : "Recent",
           medicines: mappedMedicines,
         });
