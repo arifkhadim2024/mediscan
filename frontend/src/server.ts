@@ -4,7 +4,7 @@ import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
 import { createApp, createRouter, defineEventHandler, readBody, getQuery, createError, readMultipartFormData, toWebHandler, setResponseHeader, setResponseStatus, getHeader } from "h3";
 import { registerUser, loginUser } from "./backend/services/authService.js";
-import { uploadPrescription, analyzePrescription, getPrescriptionHistory, deletePrescription, getMedicinePrices } from "./backend/services/prescriptionService.js";
+import { uploadPrescription, analyzePrescription, getPrescriptionHistory, getPrescriptionById, deletePrescription, getMedicinePrices } from "./backend/services/prescriptionService.js";
 import { supabase } from "./backend/config/supabase.js";
 
 // Setup a pure H3 app and router to handle the API endpoints natively
@@ -103,6 +103,13 @@ apiRouter.delete("/api/prescription/:id", defineEventHandler(async (event) => {
   const id = event.context.params?.id;
   const result = await deletePrescription({ prescriptionId: id, userId: user._id });
   return { success: true, message: "Prescription deleted successfully", data: result };
+}));
+
+apiRouter.get("/api/prescription/:id", defineEventHandler(async (event) => {
+  const user = await getAuthUser(event);
+  const id = event.context.params?.id;
+  const result = await getPrescriptionById({ prescriptionId: id, userId: user._id });
+  return { success: true, message: "Prescription fetched successfully", data: result };
 }));
 
 // Medicine API endpoints
