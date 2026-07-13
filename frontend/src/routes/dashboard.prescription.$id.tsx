@@ -71,9 +71,9 @@ function PrescriptionPage() {
               liver: "Consult doctor.",
               foodInteractions: "No significant interaction.",
               prices: [
-                { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: "https://www.amazon.in/pharmacy", logoColor: "#FF9900" },
-                { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: "https://www.1mg.com", logoColor: "#F97316" },
-                { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: "https://pharmeasy.in", logoColor: "#10B981" },
+                { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: `https://www.amazon.in/s?k=${encodeURIComponent(med.medicineName)}`, logoColor: "#FF9900" },
+                { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: `https://www.1mg.com/search/all?name=${encodeURIComponent(med.medicineName)}`, logoColor: "#F97316" },
+                { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(med.medicineName)}`, logoColor: "#10B981" },
               ]
             });
           }

@@ -43,13 +43,13 @@ export type Prescription = {
   medicines: Medicine[];
 };
 
-const pharmacies = (base: number): Pharmacy[] => [
-  { name: "Amazon Pharmacy", price: base + 2, availability: "In Stock", delivery: "2 days", url: "https://www.amazon.in/pharmacy", logoColor: "#FF9900" },
-  { name: "Tata 1mg", price: base, availability: "In Stock", delivery: "1 day", url: "https://www.1mg.com", logoColor: "#F97316" },
-  { name: "PharmEasy", price: base + 1, availability: "In Stock", delivery: "2 days", url: "https://pharmeasy.in", logoColor: "#10B981" },
-  { name: "Apollo Pharmacy", price: base + 4, availability: "Low Stock", delivery: "Same day", url: "https://www.apollopharmacy.in", logoColor: "#0EA5E9" },
-  { name: "Netmeds", price: base + 3, availability: "In Stock", delivery: "3 days", url: "https://www.netmeds.com", logoColor: "#EF4444" },
-  { name: "Flipkart Health+", price: base + 5, availability: "In Stock", delivery: "3 days", url: "https://healthplus.flipkart.com", logoColor: "#2563EB" },
+const pharmacies = (base: number, medicineName: string): Pharmacy[] => [
+  { name: "Amazon Pharmacy", price: base + 2, availability: "In Stock", delivery: "2 days", url: `https://www.amazon.in/s?k=${encodeURIComponent(medicineName)}`, logoColor: "#FF9900" },
+  { name: "Tata 1mg", price: base, availability: "In Stock", delivery: "1 day", url: `https://www.1mg.com/search/all?name=${encodeURIComponent(medicineName)}`, logoColor: "#F97316" },
+  { name: "PharmEasy", price: base + 1, availability: "In Stock", delivery: "2 days", url: `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(medicineName)}`, logoColor: "#10B981" },
+  { name: "Apollo Pharmacy", price: base + 4, availability: "Low Stock", delivery: "Same day", url: `https://www.apollopharmacy.in/search-medicines/${encodeURIComponent(medicineName)}`, logoColor: "#0EA5E9" },
+  { name: "Netmeds", price: base + 3, availability: "In Stock", delivery: "3 days", url: `https://www.netmeds.com/catalogsearch/result?q=${encodeURIComponent(medicineName)}`, logoColor: "#EF4444" },
+  { name: "Flipkart Health+", price: base + 5, availability: "In Stock", delivery: "3 days", url: `https://healthplus.flipkart.com/search?q=${encodeURIComponent(medicineName)}`, logoColor: "#2563EB" },
 ];
 
 export const medicines: Medicine[] = [
@@ -76,7 +76,7 @@ export const medicines: Medicine[] = [
     kidney: "Use with caution in kidney disease.",
     liver: "Not recommended for patients with severe liver disease.",
     foodInteractions: "No significant food interactions. Take after meals to avoid stomach upset.",
-    prices: pharmacies(68),
+    prices: pharmacies(68, "Paracetamol 650"),
   },
   {
     id: "azithromycin-500",
@@ -101,7 +101,7 @@ export const medicines: Medicine[] = [
     kidney: "Safe in mild-moderate impairment.",
     liver: "Avoid in severe liver disease.",
     foodInteractions: "Take 1 hour before or 2 hours after meals for best absorption.",
-    prices: pharmacies(142),
+    prices: pharmacies(142, "Azithromycin 500"),
   },
   {
     id: "pantoprazole-40",
@@ -126,7 +126,7 @@ export const medicines: Medicine[] = [
     kidney: "No dose adjustment needed.",
     liver: "Reduce dose in severe liver disease.",
     foodInteractions: "Take 30-60 minutes before breakfast.",
-    prices: pharmacies(85),
+    prices: pharmacies(85, "Pantoprazole 40"),
   },
 ];
 
