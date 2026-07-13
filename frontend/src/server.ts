@@ -2,6 +2,13 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { createApp, fromNodeMiddleware, toWebHandler } from "h3";
+import expressApp from "../../backend/src/app.js";
+
+// Setup an H3 app to run the Node Express backend
+const apiApp = createApp();
+apiApp.use(fromNodeMiddleware(expressApp));
+const apiHandler = toWebHandler(apiApp);
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -46,6 +53,13 @@ function isH3SwallowedErrorBody(body: string): boolean {
 
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
+    const url = new URL(request.url);
+    
+    // Intercept any requests to /api and process them using the Express backend
+    if (url.pathname.startsWith("/api")) {
+      return apiHandler(request, env, ctx);
+    }
+
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
@@ -59,3 +73,4 @@ export default {
     }
   },
 };
+
