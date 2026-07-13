@@ -2,7 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
-import { createApp, createRouter, defineEventHandler, readBody, getQuery, createError, readMultipartFormData, toWebHandler } from "h3";
+import { createApp, createRouter, defineEventHandler, readBody, getQuery, createError, readMultipartFormData, toWebHandler, setResponseHeader, setResponseStatus } from "h3";
 import { registerUser, loginUser } from "./backend/services/authService.js";
 import { uploadPrescription, analyzePrescription, getPrescriptionHistory, deletePrescription, getMedicinePrices } from "./backend/services/prescriptionService.js";
 import { supabase } from "./backend/config/supabase.js";
@@ -13,13 +13,14 @@ const apiApp = createApp({
     const statusCode = error.statusCode || 500;
     const message = error.message || 'Internal server error';
     
-    event.node.res.statusCode = statusCode;
-    event.node.res.setHeader("Content-Type", "application/json");
-    event.node.res.end(JSON.stringify({
+    setResponseStatus(event, statusCode);
+    setResponseHeader(event, "Content-Type", "application/json");
+    
+    return {
       success: false,
       message,
       errors: [message],
-    }));
+    };
   }
 });
 const apiRouter = createRouter();
