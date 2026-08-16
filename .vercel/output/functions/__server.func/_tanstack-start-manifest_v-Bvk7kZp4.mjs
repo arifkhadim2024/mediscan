@@ -1,4 +1,4 @@
-//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-DnNqwnX8.js
+//#region node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-Bvk7kZp4.js
 var tsrStartManifest = () => ({ routes: {
 	__root__: {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/__root.tsx",
@@ -10,7 +10,7 @@ var tsrStartManifest = () => ({ routes: {
 			"/register"
 		],
 		preloads: [
-			"/assets/index-KDXDuM9C.js",
+			"/assets/index-DLz9-aMP.js",
 			"/assets/jsx-runtime-CZcjcDnw.js",
 			"/assets/react-DQyofxZ5.js",
 			"/assets/react-dom-UJG8Qsxk.js",
@@ -22,20 +22,20 @@ var tsrStartManifest = () => ({ routes: {
 		scripts: [{ attrs: {
 			type: "module",
 			async: !0,
-			src: "/assets/index-KDXDuM9C.js"
+			src: "/assets/index-DLz9-aMP.js"
 		} }]
 	},
 	"/": {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/index.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/routes-SBC3_sIK.js",
+			"/assets/routes-CQoKT6H5.js",
 			"/assets/proxy-Hx5u10lk.js",
 			"/assets/createLucideIcon-D0NunFNv.js",
 			"/assets/activity-YRhFDK4C.js",
 			"/assets/pill-Du6lIL4u.js",
 			"/assets/check-CXsT7N2y.js",
-			"/assets/theme-toggle-Bj8QeB8t.js",
+			"/assets/theme-toggle-CdhLy2pd.js",
 			"/assets/sparkles-CWut0eY9.js",
 			"/assets/stethoscope-BlvPg_bw.js",
 			"/assets/trending-down-LriGyLON.js",
@@ -59,11 +59,11 @@ var tsrStartManifest = () => ({ routes: {
 			"/dashboard/prescription/$id"
 		],
 		preloads: [
-			"/assets/dashboard-DCBOt6qi.js",
+			"/assets/dashboard-BaWataPj.js",
 			"/assets/createLucideIcon-D0NunFNv.js",
 			"/assets/activity-YRhFDK4C.js",
 			"/assets/bot-CZ-EHq4E.js",
-			"/assets/theme-toggle-Bj8QeB8t.js",
+			"/assets/theme-toggle-CdhLy2pd.js",
 			"/assets/trending-down-LriGyLON.js",
 			"/assets/upload-BoNNX2gK.js",
 			"/assets/x-R_JzHwgY.js",
@@ -80,7 +80,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/forgot-password.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/forgot-password-BI6VeOWe.js",
+			"/assets/forgot-password-J0vx5TGc.js",
 			"/assets/button-uPCTxGGr.js",
 			"/assets/input-pFAZS6GF.js",
 			"/assets/label-DjK2qzY9.js",
@@ -91,7 +91,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/login.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/login-qGipuw8m.js",
+			"/assets/login-DjvUtjSJ.js",
 			"/assets/button-uPCTxGGr.js",
 			"/assets/input-pFAZS6GF.js",
 			"/assets/label-DjK2qzY9.js",
@@ -102,7 +102,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/register.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/register-CZuZ95xz.js",
+			"/assets/register-DPHAoHcS.js",
 			"/assets/button-uPCTxGGr.js",
 			"/assets/input-pFAZS6GF.js",
 			"/assets/label-DjK2qzY9.js",
@@ -125,7 +125,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/dashboard.history.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/dashboard.history-BknsWYSK.js",
+			"/assets/dashboard.history-DMIkobTn.js",
 			"/assets/select-BLSDuXK-.js",
 			"/assets/download-B8srAcLr.js",
 			"/assets/loader-circle-JxMDqcQ2.js",
@@ -148,7 +148,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/dashboard.prices.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/dashboard.prices-DRdh58hE.js",
+			"/assets/dashboard.prices-BFwfEeor.js",
 			"/assets/check-CXsT7N2y.js",
 			"/assets/select-BLSDuXK-.js",
 			"/assets/price-card-DuvSlDwp.js",
@@ -162,7 +162,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/dashboard.settings.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/dashboard.settings-eXtRSLgg.js",
+			"/assets/dashboard.settings-CWoH0MN7.js",
 			"/assets/card-ClwD2Emm.js",
 			"/assets/dist-CWRmQsgc.js",
 			"/assets/label-DjK2qzY9.js"
@@ -172,7 +172,7 @@ var tsrStartManifest = () => ({ routes: {
 		filePath: "/Users/arifkhadim/Documents/Mediscan/frontend/src/routes/dashboard.upload.tsx",
 		children: void 0,
 		preloads: [
-			"/assets/dashboard.upload-B5o1wOhv.js",
+			"/assets/dashboard.upload-BfRvvJ8S.js",
 			"/assets/proxy-Hx5u10lk.js",
 			"/assets/AnimatePresence-Cf1snv_Q.js",
 			"/assets/sparkles-CWut0eY9.js",
@@ -197,7 +197,7 @@ var tsrStartManifest = () => ({ routes: {
 		preloads: [
 			"/assets/dashboard.medicine._id-B28C4MPh.js",
 			"/assets/dashboard.medicine._id-C9MFUFuA.js",
-			"/assets/dashboard.medicine._id-CRmVet7i.js",
+			"/assets/dashboard.medicine._id-MjqteL3d.js",
 			"/assets/proxy-Hx5u10lk.js",
 			"/assets/arrow-left-CD_vXvXN.js",
 			"/assets/price-card-DuvSlDwp.js",
@@ -214,7 +214,7 @@ var tsrStartManifest = () => ({ routes: {
 		children: void 0,
 		preloads: [
 			"/assets/dashboard.prescription._id-B28C4MPh.js",
-			"/assets/dashboard.prescription._id-BCPPMltQ.js",
+			"/assets/dashboard.prescription._id-CG2LqRsQ.js",
 			"/assets/proxy-Hx5u10lk.js",
 			"/assets/arrow-left-CD_vXvXN.js",
 			"/assets/medicine-card-CqLz0wTF.js",

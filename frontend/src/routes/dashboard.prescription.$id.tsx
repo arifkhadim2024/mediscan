@@ -75,6 +75,9 @@ function PrescriptionPage() {
                 { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: getPharmacyUrl("Amazon Pharmacy", medId, med.medicineName), logoColor: "#FF9900" },
                 { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: getPharmacyUrl("Tata 1mg", medId, med.medicineName), logoColor: "#F97316" },
                 { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: getPharmacyUrl("PharmEasy", medId, med.medicineName), logoColor: "#10B981" },
+                { name: "Apollo Pharmacy", price: 110, availability: "In Stock", delivery: "Same day", url: getPharmacyUrl("Apollo Pharmacy", medId, med.medicineName), logoColor: "#0EA5E9" },
+                { name: "Netmeds", price: 105, availability: "In Stock", delivery: "3 days", url: getPharmacyUrl("Netmeds", medId, med.medicineName), logoColor: "#EF4444" },
+                { name: "Flipkart Health+", price: 100, availability: "In Stock", delivery: "3 days", url: getPharmacyUrl("Flipkart Health+", medId, med.medicineName), logoColor: "#2563EB" },
               ]
             });
           }

@@ -11,8 +11,8 @@ import { t as motion } from "../_libs/framer-motion.mjs";
 import { t as Badge } from "./badge-Cc0IblCb.mjs";
 import { i as getPharmacyUrl, r as findPrescription } from "./mock-data-CxLOivH1.mjs";
 import { t as MedicineCard } from "./medicine-card-C1qIXT1g.mjs";
-import { t as Route } from "./dashboard.prescription._id-4sPVC4xZ.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prescription._id-jFcSrnZQ.js
+import { t as Route } from "./dashboard.prescription._id-CqFFbjU9.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prescription._id-4vQF9rfQ.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function PrescriptionPage() {
@@ -82,6 +82,30 @@ function PrescriptionPage() {
 									delivery: "2 days",
 									url: getPharmacyUrl("PharmEasy", medId, med.medicineName),
 									logoColor: "#10B981"
+								},
+								{
+									name: "Apollo Pharmacy",
+									price: 110,
+									availability: "In Stock",
+									delivery: "Same day",
+									url: getPharmacyUrl("Apollo Pharmacy", medId, med.medicineName),
+									logoColor: "#0EA5E9"
+								},
+								{
+									name: "Netmeds",
+									price: 105,
+									availability: "In Stock",
+									delivery: "3 days",
+									url: getPharmacyUrl("Netmeds", medId, med.medicineName),
+									logoColor: "#EF4444"
+								},
+								{
+									name: "Flipkart Health+",
+									price: 100,
+									availability: "In Stock",
+									delivery: "3 days",
+									url: getPharmacyUrl("Flipkart Health+", medId, med.medicineName),
+									logoColor: "#2563EB"
 								}
 							]
 						});

@@ -4,11 +4,11 @@ import { t as ThemeProvider } from "./theme-provider-EAngUj-E.mjs";
 import { A as redirect, c as HeadContent, d as createRouter, f as Outlet, g as Link, h as createRootRouteWithContext, m as createFileRoute, p as lazyRouteComponent, s as Scripts, v as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as Toaster } from "../_libs/sonner.mjs";
 import { t as Route$12 } from "./dashboard.medicine._id-Bv-H6-Vw.mjs";
-import { t as Route$13 } from "./dashboard.prescription._id-4sPVC4xZ.mjs";
+import { t as Route$13 } from "./dashboard.prescription._id-CqFFbjU9.mjs";
 import { t as Route$14 } from "./dashboard.prices-BS6PnKDg.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { t as QueryClientProvider } from "../_libs/tanstack__react-query.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-CY2vFauB.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-B620YELJ.js
 var import_jsx_runtime = require_jsx_runtime();
 var styles_default = "/assets/styles-Cf7busKT.css";
 var Toaster$1 = ({ ...props }) => {
