@@ -201,16 +201,6 @@ var BookOpen = createLucideIcon("book-open", [["path", {
 * This source code is licensed under the ISC license.
 * See the LICENSE file in the root directory of this source tree.
 */
-var Bookmark = createLucideIcon("bookmark", [["path", {
-	d: "M17 3a2 2 0 0 1 2 2v15a1 1 0 0 1-1.496.868l-4.512-2.578a2 2 0 0 0-1.984 0l-4.512 2.578A1 1 0 0 1 5 20V5a2 2 0 0 1 2-2z",
-	key: "oz39mx"
-}]]);
-/**
-* @license lucide-react v0.575.0 - ISC
-*
-* This source code is licensed under the ISC license.
-* See the LICENSE file in the root directory of this source tree.
-*/
 var Bot = createLucideIcon("bot", [
 	["path", {
 		d: "M12 8V4H8",
@@ -1163,4 +1153,4 @@ var X = createLucideIcon("x", [["path", {
 	key: "d8bk6v"
 }]]);
 //#endregion
-export { Activity as $, History as A, ChevronUp as B, Moon as C, LoaderCircle as D, LogOut as E, ExternalLink as F, Building2 as G, Check as H, Droplet as I, BookOpen as J, Bot as K, Download as L, FileText as M, FileImage as N, LayoutDashboard as O, Eye as P, ArrowLeft as Q, CloudUpload as R, Package as S, Menu as T, Car as U, ChevronDown as V, Calendar as W, Baby as X, Bell as Y, ArrowRight as Z, Send as _, Upload as a, Pill as b, TrendingDown as c, Stethoscope as d, Sparkles as f, Settings as g, Share2 as h, User as i, HeartPulse as j, IndianRupee as k, Trash2 as l, ShieldAlert as m, Wine as n, Truck as o, Shield as p, Bookmark as q, Utensils as r, TriangleAlert as s, X as t, Sun as u, Search as v, MessageSquare as w, PanelLeft as x, ScanLine as y, Clock as z };
+export { History as A, ChevronUp as B, Moon as C, LoaderCircle as D, LogOut as E, ExternalLink as F, Building2 as G, Check as H, Droplet as I, Bell as J, Bot as K, Download as L, FileText as M, FileImage as N, LayoutDashboard as O, Eye as P, Activity as Q, CloudUpload as R, Package as S, Menu as T, Car as U, ChevronDown as V, Calendar as W, ArrowRight as X, Baby as Y, ArrowLeft as Z, Send as _, Upload as a, Pill as b, TrendingDown as c, Stethoscope as d, Sparkles as f, Settings as g, Share2 as h, User as i, HeartPulse as j, IndianRupee as k, Trash2 as l, ShieldAlert as m, Wine as n, Truck as o, Shield as p, BookOpen as q, Utensils as r, TriangleAlert as s, X as t, Sun as u, Search as v, MessageSquare as w, PanelLeft as x, ScanLine as y, Clock as z };
