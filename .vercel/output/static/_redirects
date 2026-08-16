@@ -1,0 +1,3 @@
+# Redirect /api/ requests to the backend server (Cloudflare Pages proxy rewrite)
+# Replace https://mediscan-backend.onrender.com with your actual deployed backend URL
+/api/* https://mediscan-backend.onrender.com/api/:splat 200

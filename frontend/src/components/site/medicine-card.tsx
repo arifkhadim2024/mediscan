@@ -17,9 +17,11 @@ export function MedicineCard({ medicine, index = 0 }: { medicine: Medicine; inde
       <Card className="glass overflow-hidden hover:shadow-elegant transition-all duration-300 hover:-translate-y-1">
         <CardHeader className="flex flex-row items-start justify-between gap-4 space-y-0">
           <div className="flex gap-3 min-w-0">
-            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl gradient-primary text-primary-foreground">
-              <Pill className="h-5 w-5" />
-            </div>
+            <img
+              src={medicine.image || "/images/generic_medicine.png"}
+              alt={medicine.name}
+              className="h-11 w-11 shrink-0 object-cover rounded-xl border border-border/50 bg-muted"
+            />
             <div className="min-w-0">
               <h3 className="font-bold text-lg truncate">{medicine.name}</h3>
               <p className="text-xs text-muted-foreground">{medicine.purpose}</p>
@@ -28,6 +30,11 @@ export function MedicineCard({ medicine, index = 0 }: { medicine: Medicine; inde
           <Badge variant="secondary" className="shrink-0">{medicine.dosage}</Badge>
         </CardHeader>
         <CardContent className="space-y-4">
+          {medicine.description && (
+            <p className="text-xs text-muted-foreground leading-relaxed italic border-l-2 border-primary/30 pl-2">
+              {medicine.description}
+            </p>
+          )}
           <div className="grid grid-cols-3 gap-3 text-xs">
             <div className="rounded-lg bg-muted/50 p-2">
               <div className="text-muted-foreground">Frequency</div>
@@ -70,21 +77,33 @@ export function MedicineCard({ medicine, index = 0 }: { medicine: Medicine; inde
             </div>
           )}
 
-          <div className="flex flex-wrap gap-2 pt-2 border-t border-border/50">
-            <Link to="/dashboard/prices" className="flex-1 min-w-[140px]">
-              <Button className="w-full gradient-success text-secondary-foreground" size="sm">
-                <TrendingDown className="h-4 w-4 mr-1" /> Compare Prices
+          <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/50">
+            {medicine.prices && medicine.prices.length > 0 ? (
+              <a
+                href={medicine.prices.reduce((a, b) => (a.price < b.price ? a : b)).url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex-1 min-w-[120px]"
+              >
+                <Button className="w-full gradient-success text-secondary-foreground shadow-elegant hover:scale-[1.02] transition-transform" size="sm">
+                  Buy Now
+                </Button>
+              </a>
+            ) : (
+              <Button disabled variant="outline" className="flex-1 min-w-[120px] text-xs" size="sm">
+                Product link unavailable
+              </Button>
+            )}
+
+            <Link to="/dashboard/prices" search={{ medicineId: medicine.id }} className="flex-1 min-w-[120px]">
+              <Button className="w-full text-xs" variant="outline" size="sm">
+                <TrendingDown className="h-3.5 w-3.5 mr-1 text-primary" /> Compare Prices
               </Button>
             </Link>
-            <Link to="/dashboard/medicine/$id" params={{ id: medicine.id }}>
-              <Button variant="outline" size="sm">Details</Button>
+
+            <Link to="/dashboard/medicine/$id" params={{ id: medicine.id }} className="shrink-0">
+              <Button variant="outline" size="sm" className="text-xs">Details</Button>
             </Link>
-            <Button variant="ghost" size="icon" onClick={() => toast.success("Saved to library")}>
-              <Bookmark className="h-4 w-4" />
-            </Button>
-            <Button variant="ghost" size="icon" onClick={() => toast.success("Share link copied")}>
-              <Share2 className="h-4 w-4" />
-            </Button>
           </div>
         </CardContent>
       </Card>

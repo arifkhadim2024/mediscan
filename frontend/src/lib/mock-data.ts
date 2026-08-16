@@ -31,6 +31,7 @@ export type Medicine = {
   liver: string;
   foodInteractions: string;
   prices: Pharmacy[];
+  image?: string;
 };
 
 export type Prescription = {
@@ -77,6 +78,7 @@ export const medicines: Medicine[] = [
     liver: "Not recommended for patients with severe liver disease.",
     foodInteractions: "No significant food interactions. Take after meals to avoid stomach upset.",
     prices: pharmacies(68, "Paracetamol 650"),
+    image: "/images/paracetamol.png",
   },
   {
     id: "azithromycin-500",
@@ -102,6 +104,7 @@ export const medicines: Medicine[] = [
     liver: "Avoid in severe liver disease.",
     foodInteractions: "Take 1 hour before or 2 hours after meals for best absorption.",
     prices: pharmacies(142, "Azithromycin 500"),
+    image: "/images/azithromycin.png",
   },
   {
     id: "pantoprazole-40",
@@ -127,6 +130,7 @@ export const medicines: Medicine[] = [
     liver: "Reduce dose in severe liver disease.",
     foodInteractions: "Take 30-60 minutes before breakfast.",
     prices: pharmacies(85, "Pantoprazole 40"),
+    image: "/images/pantoprazole.png",
   },
 ];
 

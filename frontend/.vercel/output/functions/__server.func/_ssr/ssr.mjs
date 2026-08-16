@@ -260,7 +260,7 @@ var callGeminiOCR = async (filePath, mimetype) => {
 		const base64Data = fs.readFileSync(filePath).toString("base64");
 		let normalizedMimeType = mimetype;
 		if (mimetype === "image/jpg") normalizedMimeType = "image/jpeg";
-		return ((await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`, { contents: [{ parts: [{ text: "Extract all text from this prescription image or document. Output only the extracted text. If there is no text or it is not a prescription, output an empty string." }, { inlineData: {
+		return ((await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${process.env.GEMINI_API_KEY}`, { contents: [{ parts: [{ text: "Extract all text from this prescription image or document. Output only the extracted text. If there is no text or it is not a prescription, output an empty string." }, { inlineData: {
 			mimeType: normalizedMimeType,
 			data: base64Data
 		} }] }] })).data.candidates?.[0]?.content?.parts?.[0]?.text || "").trim();
@@ -282,7 +282,7 @@ var simulateOCR = async (filePath, mimetype) => {
 };
 var callGemini = async (ocrText) => {
 	try {
-		const content = (await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+		const content = (await axios.post(`https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${process.env.GEMINI_API_KEY}`, {
 			contents: [{ parts: [{ text: `Analyze this prescription text and return structured JSON: ${ocrText}` }] }],
 			systemInstruction: { parts: [{ text: "You are a medical analysis assistant. Return clean JSON matching this schema: {\"medicineName\":\"...\",\"genericName\":\"...\",\"purpose\":\"...\",\"dosage\":\"...\",\"frequency\":\"...\",\"timing\":\"...\",\"beforeAfterFood\":\"...\",\"duration\":\"...\",\"possibleSideEffects\":[],\"warnings\":[],\"drugInteractions\":[],\"alternativeMedicines\":[],\"doctorNotes\":\"...\",\"patientAdvice\":\"...\",\"confidenceScore\":0.0}" }] },
 			generationConfig: {
@@ -459,7 +459,7 @@ apiApp.use(apiRouter);
 var apiHandler = toWebHandler(apiApp);
 var serverEntryPromise;
 async function getServerEntry() {
-	if (!serverEntryPromise) serverEntryPromise = import("./server-LofORQCp.mjs").then((m) => m.default ?? m);
+	if (!serverEntryPromise) serverEntryPromise = import("./server-BiMxJXtS.mjs").then((m) => m.default ?? m);
 	return serverEntryPromise;
 }
 async function normalizeCatastrophicSsrResponse(response) {

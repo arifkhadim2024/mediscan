@@ -2,13 +2,15 @@ import { createFileRoute, Link, useRouter } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   ArrowLeft, Pill, Baby, Wine, Car, Droplet, HeartPulse, Utensils,
-  ShieldAlert, Package, Sparkles,
+  ShieldAlert, Package, Sparkles, Loader2,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PriceCard } from "@/components/site/price-card";
 import { findMedicine } from "@/lib/mock-data";
+import { useState, useEffect } from "react";
+import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/dashboard/medicine/$id")({
   component: MedicinePage,
@@ -26,9 +28,84 @@ export const Route = createFileRoute("/dashboard/medicine/$id")({
 
 function MedicinePage() {
   const { id } = Route.useParams();
-  const m = findMedicine(id);
-  if (!m) return <div className="p-8">Medicine not found.</div>;
-  const cheapest = m.prices.reduce((a, b) => (a.price < b.price ? a : b));
+  const [m, setM] = useState<any | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadMedicine = async () => {
+      setLoading(true);
+      try {
+        if (id.includes("-med-")) {
+          const [prescriptionId, idxStr] = id.split("-med-");
+          const idx = parseInt(idxStr, 10);
+          const data = await api.get<any>(`/prescription/${prescriptionId}`);
+          
+          const rawMedicines = data.aiAnalysis ? (Array.isArray(data.aiAnalysis) ? data.aiAnalysis : [data.aiAnalysis]) : [];
+          const med = rawMedicines[idx];
+          if (med) {
+            setM({
+              id: id,
+              name: med.medicineName,
+              dosage: med.dosage || "As prescribed",
+              frequency: med.frequency || "1-0-1",
+              duration: med.duration || "N/A",
+              purpose: med.purpose || "Medical Treatment",
+              howToTake: med.beforeAfterFood || "As advised by doctor",
+              timing: med.timing || "Anytime",
+              sideEffects: med.possibleSideEffects || [],
+              warnings: med.warnings || [],
+              interactions: med.drugInteractions || [],
+              alternatives: med.alternativeMedicines || [],
+              description: `${med.genericName || med.medicineName} is used for ${med.purpose || 'treatment'}.`,
+              uses: [med.purpose || "Treatment"],
+              benefits: ["Effective relief"],
+              storage: "Store in a cool dry place.",
+              pregnancy: "Consult doctor.",
+              alcohol: "Avoid alcohol.",
+              driving: "Consult doctor.",
+              kidney: "Consult doctor.",
+              liver: "Consult doctor.",
+              foodInteractions: "No significant interaction.",
+              image: "/images/generic_medicine.png",
+              prices: [
+                { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: `https://www.amazon.in/s?k=${encodeURIComponent(med.medicineName)}`, logoColor: "#FF9900" },
+                { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: `https://www.1mg.com/search/all?name=${encodeURIComponent(med.medicineName)}`, logoColor: "#F97316" },
+                { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(med.medicineName)}`, logoColor: "#10B981" },
+                { name: "Apollo Pharmacy", price: 110, availability: "In Stock", delivery: "Same day", url: `https://www.apollopharmacy.in/search-medicines/${encodeURIComponent(med.medicineName)}`, logoColor: "#0EA5E9" },
+                { name: "Netmeds", price: 105, availability: "In Stock", delivery: "3 days", url: `https://www.netmeds.com/catalogsearch/result?q=${encodeURIComponent(med.medicineName)}`, logoColor: "#EF4444" },
+                { name: "Flipkart Health+", price: 100, availability: "In Stock", delivery: "3 days", url: `https://healthplus.flipkart.com/search?q=${encodeURIComponent(med.medicineName)}`, logoColor: "#2563EB" },
+              ]
+            });
+          }
+        } else {
+          const staticMed = findMedicine(id);
+          if (staticMed) {
+            setM(staticMed);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load medicine details", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadMedicine();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="p-12 text-center text-muted-foreground flex flex-col items-center gap-2">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        Loading medicine details...
+      </div>
+    );
+  }
+
+  if (!m) return <div className="p-8 text-center text-muted-foreground">Medicine not found.</div>;
+
+  const cheapest = m.prices && m.prices.length > 0
+    ? m.prices.reduce((a: any, b: any) => (a.price < b.price ? a : b))
+    : null;
 
   const warnings = [
     { icon: Baby, label: "Pregnancy", text: m.pregnancy },
@@ -48,9 +125,11 @@ function MedicinePage() {
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
         <Card className="glass overflow-hidden">
           <div className="gradient-hero p-6 text-primary-foreground flex flex-wrap items-start gap-4">
-            <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-white/20 backdrop-blur">
-              <Pill className="h-6 w-6" />
-            </div>
+            <img
+              src={m.image || "/images/generic_medicine.png"}
+              alt={m.name}
+              className="h-14 w-14 shrink-0 object-cover rounded-2xl border border-white/20 bg-white/10 backdrop-blur"
+            />
             <div className="min-w-0 flex-1">
               <h1 className="text-2xl sm:text-3xl font-bold truncate">{m.name}</h1>
               <p className="opacity-90 text-sm mt-1">{m.purpose}</p>
@@ -74,21 +153,21 @@ function MedicinePage() {
             <div>
               <h4 className="font-semibold mb-2 flex items-center gap-1"><Sparkles className="h-4 w-4 text-primary" /> Uses</h4>
               <div className="flex flex-wrap gap-1">
-                {m.uses.map((u) => <Badge key={u} variant="outline">{u}</Badge>)}
+                {m.uses.map((u: string) => <Badge key={u} variant="outline">{u}</Badge>)}
               </div>
             </div>
 
             <div>
               <h4 className="font-semibold mb-2">Benefits</h4>
               <ul className="list-disc list-inside text-muted-foreground space-y-1">
-                {m.benefits.map((b) => <li key={b}>{b}</li>)}
+                {m.benefits.map((b: string) => <li key={b}>{b}</li>)}
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-2 flex items-center gap-1"><ShieldAlert className="h-4 w-4 text-destructive" /> Side Effects</h4>
               <div className="flex flex-wrap gap-1">
-                {m.sideEffects.map((s) => <Badge key={s} variant="secondary">{s}</Badge>)}
+                {m.sideEffects.map((s: string) => <Badge key={s} variant="secondary">{s}</Badge>)}
               </div>
             </div>
           </CardContent>
@@ -122,9 +201,13 @@ function MedicinePage() {
       <div>
         <h2 className="text-xl font-bold mb-4">Price across pharmacies</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {m.prices.map((p, i) => (
-            <PriceCard key={p.name} pharmacy={p} cheapest={p.name === cheapest.name} index={i} />
-          ))}
+          {cheapest ? (
+            m.prices.map((p: any, i: number) => (
+              <PriceCard key={p.name} pharmacy={p} cheapest={p.name === cheapest.name} index={i} />
+            ))
+          ) : (
+            <p className="text-sm text-muted-foreground italic col-span-3">Product links unavailable</p>
+          )}
         </div>
       </div>
     </div>
