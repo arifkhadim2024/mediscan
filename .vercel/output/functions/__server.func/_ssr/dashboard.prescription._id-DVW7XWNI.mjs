@@ -3,16 +3,16 @@ import { t as api } from "./api-DbbIhhGe.mjs";
 import { u as require_react } from "../_libs/@floating-ui/react-dom+[...].mjs";
 import { c as require_jsx_runtime } from "../_libs/@radix-ui/react-arrow+[...].mjs";
 import { t as Button } from "./button-DRsC1qZi.mjs";
-import { D as LoaderCircle, G as Building2, L as Download, W as Calendar, Z as ArrowLeft, d as Stethoscope, h as Share2, i as User } from "../_libs/lucide-react.mjs";
+import { $ as ArrowLeft, D as LoaderCircle, K as Calendar, L as Download, d as Stethoscope, h as Share2, i as User, q as Building2 } from "../_libs/lucide-react.mjs";
 import { g as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as toast } from "../_libs/sonner.mjs";
 import { n as CardContent, t as Card } from "./card-CGCM0s9z.mjs";
 import { t as motion } from "../_libs/framer-motion.mjs";
 import { t as Badge } from "./badge-Cc0IblCb.mjs";
 import { i as getPharmacyUrl, r as findPrescription } from "./mock-data-CxLOivH1.mjs";
-import { t as MedicineCard } from "./medicine-card-C1qIXT1g.mjs";
-import { t as Route } from "./dashboard.prescription._id-CqFFbjU9.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prescription._id-4vQF9rfQ.js
+import { t as MedicineCard } from "./medicine-card-DExrJ8sT.mjs";
+import { t as Route } from "./dashboard.prescription._id-CwS5ozVr.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prescription._id-DVW7XWNI.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function PrescriptionPage() {

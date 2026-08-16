@@ -1,8 +1,8 @@
 import { m as createFileRoute, p as lazyRouteComponent } from "../_libs/@tanstack/react-router+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prescription._id-CqFFbjU9.js
+//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prescription._id-CwS5ozVr.js
 var $$splitErrorComponentImporter = () => import("./dashboard.prescription._id-CCd5hDvA.mjs");
 var $$splitNotFoundComponentImporter = () => import("./dashboard.prescription._id-DF1GV383.mjs");
-var $$splitComponentImporter = () => import("./dashboard.prescription._id-4vQF9rfQ.mjs");
+var $$splitComponentImporter = () => import("./dashboard.prescription._id-DVW7XWNI.mjs");
 var Route = createFileRoute("/dashboard/prescription/$id")({
 	component: lazyRouteComponent($$splitComponentImporter, "component"),
 	notFoundComponent: lazyRouteComponent($$splitNotFoundComponentImporter, "notFoundComponent"),

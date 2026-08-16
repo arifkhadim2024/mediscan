@@ -4,8 +4,8 @@ import { c as require_jsx_runtime } from "../_libs/@radix-ui/react-arrow+[...].m
 import { t as Input } from "./input-DicJzR9-.mjs";
 import { v as Search } from "../_libs/lucide-react.mjs";
 import { a as medicines } from "./mock-data-CxLOivH1.mjs";
-import { t as MedicineCard } from "./medicine-card-C1qIXT1g.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.medicines-CYgBtoib.js
+import { t as MedicineCard } from "./medicine-card-DExrJ8sT.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.medicines-Du3inTBD.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function MedicinesPage() {

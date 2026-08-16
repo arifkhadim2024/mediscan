@@ -4,7 +4,7 @@ import { c as require_jsx_runtime, n as Primitive, s as useComposedRefs } from "
 import { o as createContextScope } from "./@radix-ui/react-avatar+[...].mjs";
 import { t as composeEventHandlers } from "./radix-ui__primitive.mjs";
 import { h as useControllableState } from "./@radix-ui/react-dialog+[...].mjs";
-import { o as useSize } from "./@radix-ui/react-popper+[...].mjs";
+import { v as useSize } from "./@radix-ui/react-dropdown-menu+[...].mjs";
 import { h as usePrevious } from "./@radix-ui/react-select+[...].mjs";
 //#region node_modules/@radix-ui/react-switch/dist/index.mjs
 var import_react = /* @__PURE__ */ __toESM(require_react(), 1);

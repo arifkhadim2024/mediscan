@@ -1,10 +1,16 @@
 import { motion } from "framer-motion";
 import { Link } from "@tanstack/react-router";
-import { Pill, Clock, Utensils, AlertTriangle, Share2, Bookmark, TrendingDown } from "lucide-react";
+import { Pill, Clock, Utensils, AlertTriangle, Share2, Bookmark, TrendingDown, ChevronDown, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import type { Medicine } from "@/lib/mock-data";
 
 export function MedicineCard({ medicine, index = 0 }: { medicine: Medicine; index?: number }) {
@@ -79,16 +85,30 @@ export function MedicineCard({ medicine, index = 0 }: { medicine: Medicine; inde
 
           <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-border/50">
             {medicine.prices && medicine.prices.length > 0 ? (
-              <a
-                href={medicine.prices.reduce((a, b) => (a.price < b.price ? a : b)).url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex-1 min-w-[120px]"
-              >
-                <Button className="w-full gradient-success text-secondary-foreground shadow-elegant hover:scale-[1.02] transition-transform" size="sm">
-                  Buy Now
-                </Button>
-              </a>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button className="flex-1 min-w-[120px] gradient-success text-secondary-foreground shadow-elegant hover:scale-[1.02] transition-transform flex items-center justify-center gap-1" size="sm">
+                    Buy Now <ChevronDown className="h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56 glass">
+                  {medicine.prices.map((p) => (
+                    <DropdownMenuItem key={p.name} asChild>
+                      <a
+                        href={p.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center justify-between cursor-pointer w-full text-xs px-2 py-1.5 hover:bg-muted/50 rounded-sm"
+                      >
+                        <span className="font-medium">{p.name}</span>
+                        <span className="font-bold text-success flex items-center gap-1">
+                          ₹{p.price} <ExternalLink className="h-3 w-3 opacity-60" />
+                        </span>
+                      </a>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Button disabled variant="outline" className="flex-1 min-w-[120px] text-xs" size="sm">
                 Product link unavailable

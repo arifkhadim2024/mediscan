@@ -4,7 +4,7 @@ import { a as createSlot, c as require_jsx_runtime, n as Primitive, s as useComp
 import { a as useCallbackRef, i as useLayoutEffect2, o as createContextScope } from "./react-avatar+[...].mjs";
 import { t as composeEventHandlers } from "../radix-ui__primitive.mjs";
 import { c as hideOthers, d as Presence, f as Portal, g as useId, h as useControllableState, l as ReactRemoveScroll, m as DismissableLayer, p as FocusScope, u as useFocusGuards } from "./react-dialog+[...].mjs";
-import { a as createPopperScope, i as Root2, n as Arrow, r as Content, t as Anchor } from "./react-popper+[...].mjs";
+import { _ as createPopperScope, g as Root2, h as Content, m as Arrow, p as Anchor } from "./react-dropdown-menu+[...].mjs";
 import { t as clamp } from "../radix-ui__number.mjs";
 import { t as createCollection } from "../radix-ui__react-collection.mjs";
 import { t as useDirection } from "../radix-ui__react-direction.mjs";

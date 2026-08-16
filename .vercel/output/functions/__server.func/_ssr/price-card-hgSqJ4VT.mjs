@@ -1,6 +1,6 @@
 import { c as require_jsx_runtime } from "../_libs/@radix-ui/react-arrow+[...].mjs";
 import { t as Button } from "./button-DRsC1qZi.mjs";
-import { F as ExternalLink, H as Check, o as Truck } from "../_libs/lucide-react.mjs";
+import { F as ExternalLink, W as Check, o as Truck } from "../_libs/lucide-react.mjs";
 import { n as CardContent, t as Card } from "./card-CGCM0s9z.mjs";
 import { t as motion } from "../_libs/framer-motion.mjs";
 import { t as Badge } from "./badge-Cc0IblCb.mjs";

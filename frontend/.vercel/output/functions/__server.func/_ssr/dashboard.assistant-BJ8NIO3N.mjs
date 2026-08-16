@@ -3,7 +3,7 @@ import { u as require_react } from "../_libs/@floating-ui/react-dom+[...].mjs";
 import { c as require_jsx_runtime } from "../_libs/@radix-ui/react-arrow+[...].mjs";
 import { t as Button } from "./button-DRsC1qZi.mjs";
 import { t as Input } from "./input-DicJzR9-.mjs";
-import { K as Bot, _ as Send, f as Sparkles, i as User } from "../_libs/lucide-react.mjs";
+import { J as Bot, _ as Send, f as Sparkles, i as User } from "../_libs/lucide-react.mjs";
 import { t as Card } from "./card-CGCM0s9z.mjs";
 import { n as AnimatePresence, t as motion } from "../_libs/framer-motion.mjs";
 //#region node_modules/.nitro/vite/services/ssr/assets/dashboard.assistant-BJ8NIO3N.js

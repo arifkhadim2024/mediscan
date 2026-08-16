@@ -1,6 +1,6 @@
 import { c as require_jsx_runtime } from "../_libs/@radix-ui/react-arrow+[...].mjs";
 import { t as Button } from "./button-DRsC1qZi.mjs";
-import { M as FileText, X as ArrowRight, a as Upload, b as Pill, k as IndianRupee } from "../_libs/lucide-react.mjs";
+import { M as FileText, Q as ArrowRight, a as Upload, b as Pill, k as IndianRupee } from "../_libs/lucide-react.mjs";
 import { g as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as CardTitle, n as CardContent, r as CardHeader, t as Card } from "./card-CGCM0s9z.mjs";
 import { t as motion } from "../_libs/framer-motion.mjs";
