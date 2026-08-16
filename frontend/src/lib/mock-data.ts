@@ -44,13 +44,75 @@ export type Prescription = {
   medicines: Medicine[];
 };
 
-const pharmacies = (base: number, medicineName: string): Pharmacy[] => [
-  { name: "Amazon Pharmacy", price: base + 2, availability: "In Stock", delivery: "2 days", url: `https://www.amazon.in/s?k=${encodeURIComponent(medicineName)}`, logoColor: "#FF9900" },
-  { name: "Tata 1mg", price: base, availability: "In Stock", delivery: "1 day", url: `https://www.1mg.com/search/all?name=${encodeURIComponent(medicineName)}`, logoColor: "#F97316" },
-  { name: "PharmEasy", price: base + 1, availability: "In Stock", delivery: "2 days", url: `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(medicineName)}`, logoColor: "#10B981" },
-  { name: "Apollo Pharmacy", price: base + 4, availability: "Low Stock", delivery: "Same day", url: `https://www.apollopharmacy.in/search-medicines/${encodeURIComponent(medicineName)}`, logoColor: "#0EA5E9" },
-  { name: "Netmeds", price: base + 3, availability: "In Stock", delivery: "3 days", url: `https://www.netmeds.com/catalogsearch/result?q=${encodeURIComponent(medicineName)}`, logoColor: "#EF4444" },
-  { name: "Flipkart Health+", price: base + 5, availability: "In Stock", delivery: "3 days", url: `https://healthplus.flipkart.com/search?q=${encodeURIComponent(medicineName)}`, logoColor: "#2563EB" },
+export const directProductUrls: Record<string, Record<string, string>> = {
+  "paracetamol-650": {
+    "Tata 1mg": "https://www.1mg.com/drugs/dolo-650-tablet-74051",
+    "PharmEasy": "https://pharmeasy.in/online-medicine-order/dolo-650mg-strip-of-15-tablets-21946",
+    "Amazon Pharmacy": "https://www.amazon.in/s?k=Dolo+650",
+    "Apollo Pharmacy": "https://www.apollopharmacy.in/otc/dolo-650mg-tablet-15-s",
+    "Netmeds": "https://www.netmeds.com/prescriptions/dolo-650-mg-tablet-15-s",
+    "Flipkart Health+": "https://healthplus.flipkart.com/dolo-650mg-tablet-15-s"
+  },
+  "azithromycin-500": {
+    "Tata 1mg": "https://www.1mg.com/drugs/azee-500-tablet-132204",
+    "PharmEasy": "https://pharmeasy.in/online-medicine-order/azee-500mg-tablet-21950",
+    "Amazon Pharmacy": "https://www.amazon.in/s?k=Azee+500",
+    "Apollo Pharmacy": "https://www.apollopharmacy.in/medicine/azee-500mg-tablet",
+    "Netmeds": "https://www.netmeds.com/prescriptions/azee-500-mg-tablet-5-s",
+    "Flipkart Health+": "https://healthplus.flipkart.com/azee-500mg-tablet-5-s"
+  },
+  "pantoprazole-40": {
+    "Tata 1mg": "https://www.1mg.com/drugs/pan-40-tablet-66046",
+    "PharmEasy": "https://pharmeasy.in/online-medicine-order/pan-40mg-tablet-21952",
+    "Amazon Pharmacy": "https://www.amazon.in/s?k=Pan+40",
+    "Apollo Pharmacy": "https://www.apollopharmacy.in/medicine/pan-40mg-tablet",
+    "Netmeds": "https://www.netmeds.com/prescriptions/pan-40-mg-tablet-15-s",
+    "Flipkart Health+": "https://healthplus.flipkart.com/pan-40mg-tablet-15-s"
+  }
+};
+
+export function getPharmacyUrl(pharmacyName: string, medicineId: string, medicineName: string): string {
+  const normalizedId = medicineId.toLowerCase();
+  const normalizedName = medicineName.toLowerCase();
+  
+  let key = "";
+  if (normalizedId.includes("paracetamol") || normalizedName.includes("paracetamol") || normalizedName.includes("dolo")) {
+    key = "paracetamol-650";
+  } else if (normalizedId.includes("azithromycin") || normalizedName.includes("azithromycin") || normalizedName.includes("azee")) {
+    key = "azithromycin-500";
+  } else if (normalizedId.includes("pantoprazole") || normalizedName.includes("pantoprazole") || normalizedName.includes("pan 40")) {
+    key = "pantoprazole-40";
+  }
+
+  if (key && directProductUrls[key]?.[pharmacyName]) {
+    return directProductUrls[key][pharmacyName];
+  }
+
+  switch (pharmacyName) {
+    case "Amazon Pharmacy":
+      return `https://www.amazon.in/s?k=${encodeURIComponent(medicineName)}`;
+    case "Tata 1mg":
+      return `https://www.1mg.com/search/all?name=${encodeURIComponent(medicineName)}`;
+    case "PharmEasy":
+      return `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(medicineName)}`;
+    case "Apollo Pharmacy":
+      return `https://www.apollopharmacy.in/search-medicines/${encodeURIComponent(medicineName)}`;
+    case "Netmeds":
+      return `https://www.netmeds.com/catalogsearch/result?q=${encodeURIComponent(medicineName)}`;
+    case "Flipkart Health+":
+      return `https://healthplus.flipkart.com/search?q=${encodeURIComponent(medicineName)}`;
+    default:
+      return `https://www.1mg.com/search/all?name=${encodeURIComponent(medicineName)}`;
+  }
+}
+
+const pharmacies = (base: number, medicineName: string, medicineId: string): Pharmacy[] => [
+  { name: "Amazon Pharmacy", price: base + 2, availability: "In Stock", delivery: "2 days", url: getPharmacyUrl("Amazon Pharmacy", medicineId, medicineName), logoColor: "#FF9900" },
+  { name: "Tata 1mg", price: base, availability: "In Stock", delivery: "1 day", url: getPharmacyUrl("Tata 1mg", medicineId, medicineName), logoColor: "#F97316" },
+  { name: "PharmEasy", price: base + 1, availability: "In Stock", delivery: "2 days", url: getPharmacyUrl("PharmEasy", medicineId, medicineName), logoColor: "#10B981" },
+  { name: "Apollo Pharmacy", price: base + 4, availability: "Low Stock", delivery: "Same day", url: getPharmacyUrl("Apollo Pharmacy", medicineId, medicineName), logoColor: "#0EA5E9" },
+  { name: "Netmeds", price: base + 3, availability: "In Stock", delivery: "3 days", url: getPharmacyUrl("Netmeds", medicineId, medicineName), logoColor: "#EF4444" },
+  { name: "Flipkart Health+", price: base + 5, availability: "In Stock", delivery: "3 days", url: getPharmacyUrl("Flipkart Health+", medicineId, medicineName), logoColor: "#2563EB" },
 ];
 
 export const medicines: Medicine[] = [
@@ -77,7 +139,7 @@ export const medicines: Medicine[] = [
     kidney: "Use with caution in kidney disease.",
     liver: "Not recommended for patients with severe liver disease.",
     foodInteractions: "No significant food interactions. Take after meals to avoid stomach upset.",
-    prices: pharmacies(68, "Paracetamol 650"),
+    prices: pharmacies(68, "Paracetamol 650", "paracetamol-650"),
     image: "/images/paracetamol.png",
   },
   {
@@ -103,7 +165,7 @@ export const medicines: Medicine[] = [
     kidney: "Safe in mild-moderate impairment.",
     liver: "Avoid in severe liver disease.",
     foodInteractions: "Take 1 hour before or 2 hours after meals for best absorption.",
-    prices: pharmacies(142, "Azithromycin 500"),
+    prices: pharmacies(142, "Azithromycin 500", "azithromycin-500"),
     image: "/images/azithromycin.png",
   },
   {
@@ -129,7 +191,7 @@ export const medicines: Medicine[] = [
     kidney: "No dose adjustment needed.",
     liver: "Reduce dose in severe liver disease.",
     foodInteractions: "Take 30-60 minutes before breakfast.",
-    prices: pharmacies(85, "Pantoprazole 40"),
+    prices: pharmacies(85, "Pantoprazole 40", "pantoprazole-40"),
     image: "/images/pantoprazole.png",
   },
 ];

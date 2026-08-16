@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { medicines } from "@/lib/mock-data";
+import { medicines, getPharmacyUrl } from "@/lib/mock-data";
 import { PriceCard } from "@/components/site/price-card";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
@@ -78,12 +78,12 @@ function PricesPage() {
               foodInteractions: "No significant interaction.",
               image: "/images/generic_medicine.png",
               prices: [
-                { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: `https://www.amazon.in/s?k=${encodeURIComponent(med.medicineName)}`, logoColor: "#FF9900" },
-                { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: `https://www.1mg.com/search/all?name=${encodeURIComponent(med.medicineName)}`, logoColor: "#F97316" },
-                { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(med.medicineName)}`, logoColor: "#10B981" },
-                { name: "Apollo Pharmacy", price: 110, availability: "In Stock", delivery: "Same day", url: `https://www.apollopharmacy.in/search-medicines/${encodeURIComponent(med.medicineName)}`, logoColor: "#0EA5E9" },
-                { name: "Netmeds", price: 105, availability: "In Stock", delivery: "3 days", url: `https://www.netmeds.com/catalogsearch/result?q=${encodeURIComponent(med.medicineName)}`, logoColor: "#EF4444" },
-                { name: "Flipkart Health+", price: 100, availability: "In Stock", delivery: "3 days", url: `https://healthplus.flipkart.com/search?q=${encodeURIComponent(med.medicineName)}`, logoColor: "#2563EB" },
+                { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: getPharmacyUrl("Amazon Pharmacy", selectedId, med.medicineName), logoColor: "#FF9900" },
+                { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: getPharmacyUrl("Tata 1mg", selectedId, med.medicineName), logoColor: "#F97316" },
+                { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: getPharmacyUrl("PharmEasy", selectedId, med.medicineName), logoColor: "#10B981" },
+                { name: "Apollo Pharmacy", price: 110, availability: "In Stock", delivery: "Same day", url: getPharmacyUrl("Apollo Pharmacy", selectedId, med.medicineName), logoColor: "#0EA5E9" },
+                { name: "Netmeds", price: 105, availability: "In Stock", delivery: "3 days", url: getPharmacyUrl("Netmeds", selectedId, med.medicineName), logoColor: "#EF4444" },
+                { name: "Flipkart Health+", price: 100, availability: "In Stock", delivery: "3 days", url: getPharmacyUrl("Flipkart Health+", selectedId, med.medicineName), logoColor: "#2563EB" },
               ]
             };
             setAllMedicines((prev) => [...prev, dynamicMed]);

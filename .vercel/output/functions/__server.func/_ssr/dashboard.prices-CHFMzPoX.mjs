@@ -7,10 +7,10 @@ import { D as LoaderCircle, F as ExternalLink, H as Check } from "../_libs/lucid
 import { t as Card } from "./card-CGCM0s9z.mjs";
 import { t as Badge } from "./badge-Cc0IblCb.mjs";
 import { a as SelectValue, i as SelectTrigger, n as SelectContent, r as SelectItem, t as Select } from "./select-DUy71i1r.mjs";
-import { i as medicines } from "./mock-data-RrsbMZyB.mjs";
+import { a as medicines, i as getPharmacyUrl } from "./mock-data-CxLOivH1.mjs";
 import { t as PriceCard } from "./price-card-hgSqJ4VT.mjs";
-import { t as Route } from "./dashboard.prices-DRGOWLQZ.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prices-D3PV5OFN.js
+import { t as Route } from "./dashboard.prices-BS6PnKDg.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prices-CHFMzPoX.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function PricesPage() {
@@ -63,7 +63,7 @@ function PricesPage() {
 									price: 120,
 									availability: "In Stock",
 									delivery: "2 days",
-									url: `https://www.amazon.in/s?k=${encodeURIComponent(med.medicineName)}`,
+									url: getPharmacyUrl("Amazon Pharmacy", selectedId, med.medicineName),
 									logoColor: "#FF9900"
 								},
 								{
@@ -71,7 +71,7 @@ function PricesPage() {
 									price: 95,
 									availability: "In Stock",
 									delivery: "1 day",
-									url: `https://www.1mg.com/search/all?name=${encodeURIComponent(med.medicineName)}`,
+									url: getPharmacyUrl("Tata 1mg", selectedId, med.medicineName),
 									logoColor: "#F97316"
 								},
 								{
@@ -79,7 +79,7 @@ function PricesPage() {
 									price: 102,
 									availability: "In Stock",
 									delivery: "2 days",
-									url: `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(med.medicineName)}`,
+									url: getPharmacyUrl("PharmEasy", selectedId, med.medicineName),
 									logoColor: "#10B981"
 								},
 								{
@@ -87,7 +87,7 @@ function PricesPage() {
 									price: 110,
 									availability: "In Stock",
 									delivery: "Same day",
-									url: `https://www.apollopharmacy.in/search-medicines/${encodeURIComponent(med.medicineName)}`,
+									url: getPharmacyUrl("Apollo Pharmacy", selectedId, med.medicineName),
 									logoColor: "#0EA5E9"
 								},
 								{
@@ -95,7 +95,7 @@ function PricesPage() {
 									price: 105,
 									availability: "In Stock",
 									delivery: "3 days",
-									url: `https://www.netmeds.com/catalogsearch/result?q=${encodeURIComponent(med.medicineName)}`,
+									url: getPharmacyUrl("Netmeds", selectedId, med.medicineName),
 									logoColor: "#EF4444"
 								},
 								{
@@ -103,7 +103,7 @@ function PricesPage() {
 									price: 100,
 									availability: "In Stock",
 									delivery: "3 days",
-									url: `https://healthplus.flipkart.com/search?q=${encodeURIComponent(med.medicineName)}`,
+									url: getPharmacyUrl("Flipkart Health+", selectedId, med.medicineName),
 									logoColor: "#2563EB"
 								}
 							]

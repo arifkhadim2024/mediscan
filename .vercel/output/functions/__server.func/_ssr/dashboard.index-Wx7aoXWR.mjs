@@ -5,9 +5,9 @@ import { g as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as CardTitle, n as CardContent, r as CardHeader, t as Card } from "./card-CGCM0s9z.mjs";
 import { t as motion } from "../_libs/framer-motion.mjs";
 import { t as Badge } from "./badge-Cc0IblCb.mjs";
-import { a as prescriptions, t as dashboardStats } from "./mock-data-RrsbMZyB.mjs";
+import { o as prescriptions, t as dashboardStats } from "./mock-data-CxLOivH1.mjs";
 import { a as CartesianGrid, i as Area, n as YAxis, o as ResponsiveContainer, r as XAxis, s as Tooltip, t as AreaChart } from "../_libs/recharts+[...].mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.index-BkwfRQIy.js
+//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.index-Wx7aoXWR.js
 var import_jsx_runtime = require_jsx_runtime();
 function StatCard({ label, value, icon: Icon, trend, index = 0 }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(motion.div, {

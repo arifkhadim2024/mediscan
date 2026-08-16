@@ -4,7 +4,7 @@ import { ArrowLeft, Stethoscope, User, Building2, Calendar, Share2, Download, Lo
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { findPrescription } from "@/lib/mock-data";
+import { findPrescription, getPharmacyUrl } from "@/lib/mock-data";
 import { MedicineCard } from "@/components/site/medicine-card";
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
@@ -47,8 +47,9 @@ function PrescriptionPage() {
         
         rawMedicines.forEach((med: any, idx: number) => {
           if (med && med.medicineName) {
+            const medId = `${data._id}-med-${idx}`;
             mappedMedicines.push({
-              id: `${data._id}-med-${idx}`,
+              id: medId,
               name: med.medicineName,
               dosage: med.dosage || "As prescribed",
               frequency: med.frequency || "1-0-1",
@@ -71,9 +72,9 @@ function PrescriptionPage() {
               liver: "Consult doctor.",
               foodInteractions: "No significant interaction.",
               prices: [
-                { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: `https://www.amazon.in/s?k=${encodeURIComponent(med.medicineName)}`, logoColor: "#FF9900" },
-                { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: `https://www.1mg.com/search/all?name=${encodeURIComponent(med.medicineName)}`, logoColor: "#F97316" },
-                { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(med.medicineName)}`, logoColor: "#10B981" },
+                { name: "Amazon Pharmacy", price: 120, availability: "In Stock", delivery: "2 days", url: getPharmacyUrl("Amazon Pharmacy", medId, med.medicineName), logoColor: "#FF9900" },
+                { name: "Tata 1mg", price: 95, availability: "In Stock", delivery: "1 day", url: getPharmacyUrl("Tata 1mg", medId, med.medicineName), logoColor: "#F97316" },
+                { name: "PharmEasy", price: 102, availability: "In Stock", delivery: "2 days", url: getPharmacyUrl("PharmEasy", medId, med.medicineName), logoColor: "#10B981" },
               ]
             });
           }

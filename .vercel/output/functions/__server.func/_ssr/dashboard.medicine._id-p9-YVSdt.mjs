@@ -8,10 +8,10 @@ import { g as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { i as CardTitle, n as CardContent, r as CardHeader, t as Card } from "./card-CGCM0s9z.mjs";
 import { t as motion } from "../_libs/framer-motion.mjs";
 import { t as Badge } from "./badge-Cc0IblCb.mjs";
-import { n as findMedicine } from "./mock-data-RrsbMZyB.mjs";
-import { t as Route } from "./dashboard.medicine._id-CkSxnjAs.mjs";
+import { n as findMedicine } from "./mock-data-CxLOivH1.mjs";
+import { t as Route } from "./dashboard.medicine._id-Bv-H6-Vw.mjs";
 import { t as PriceCard } from "./price-card-hgSqJ4VT.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.medicine._id-BYy6nll7.js
+//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.medicine._id-p9-YVSdt.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function MedicinePage() {

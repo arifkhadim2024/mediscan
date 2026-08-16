@@ -6,7 +6,7 @@ import { t as cva } from "../_libs/class-variance-authority+clsx.mjs";
 import { n as cn, t as Button } from "./button-DRsC1qZi.mjs";
 import { t as Input } from "./input-DicJzR9-.mjs";
 import { n as AvatarFallback, t as Avatar } from "./avatar-CS7zwmKy.mjs";
-import { $ as Activity, A as History, E as LogOut, J as BookOpen, K as Bot, O as LayoutDashboard, Y as Bell, a as Upload, c as TrendingDown, g as Settings, t as X, x as PanelLeft } from "../_libs/lucide-react.mjs";
+import { A as History, E as LogOut, J as Bell, K as Bot, O as LayoutDashboard, Q as Activity, a as Upload, c as TrendingDown, g as Settings, q as BookOpen, t as X, x as PanelLeft } from "../_libs/lucide-react.mjs";
 import { t as ThemeToggle } from "./theme-toggle-CqpvbB5h.mjs";
 import { _ as useNavigate, f as Outlet, g as Link, l as useRouterState } from "../_libs/@tanstack/react-router+[...].mjs";
 import { n as toast } from "../_libs/sonner.mjs";

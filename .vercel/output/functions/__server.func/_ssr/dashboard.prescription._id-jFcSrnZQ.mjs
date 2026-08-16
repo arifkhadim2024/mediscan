@@ -9,10 +9,10 @@ import { n as toast } from "../_libs/sonner.mjs";
 import { n as CardContent, t as Card } from "./card-CGCM0s9z.mjs";
 import { t as motion } from "../_libs/framer-motion.mjs";
 import { t as Badge } from "./badge-Cc0IblCb.mjs";
-import { r as findPrescription } from "./mock-data-RrsbMZyB.mjs";
+import { i as getPharmacyUrl, r as findPrescription } from "./mock-data-CxLOivH1.mjs";
 import { t as MedicineCard } from "./medicine-card-C1qIXT1g.mjs";
-import { t as Route } from "./dashboard.prescription._id-Cc-iFmG0.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prescription._id-Dd2-fp2Z.js
+import { t as Route } from "./dashboard.prescription._id-4sPVC4xZ.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/dashboard.prescription._id-jFcSrnZQ.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function PrescriptionPage() {
@@ -33,56 +33,59 @@ function PrescriptionPage() {
 				const rawMedicines = isAnalyzed ? Array.isArray(data.aiAnalysis) ? data.aiAnalysis : [data.aiAnalysis] : [];
 				const firstAnalysis = rawMedicines[0];
 				rawMedicines.forEach((med, idx) => {
-					if (med && med.medicineName) mappedMedicines.push({
-						id: `${data._id}-med-${idx}`,
-						name: med.medicineName,
-						dosage: med.dosage || "As prescribed",
-						frequency: med.frequency || "1-0-1",
-						duration: med.duration || "N/A",
-						purpose: med.purpose || "Medical Treatment",
-						howToTake: med.beforeAfterFood || "As advised by doctor",
-						timing: med.timing || "Anytime",
-						sideEffects: med.possibleSideEffects || [],
-						warnings: med.warnings || [],
-						interactions: med.drugInteractions || [],
-						alternatives: med.alternativeMedicines || [],
-						description: `${med.genericName || med.medicineName} is used for ${med.purpose || "treatment"}.`,
-						uses: [med.purpose || "Treatment"],
-						benefits: ["Effective relief"],
-						storage: "Store in a cool dry place.",
-						pregnancy: "Consult doctor.",
-						alcohol: "Avoid alcohol.",
-						driving: "Consult doctor.",
-						kidney: "Consult doctor.",
-						liver: "Consult doctor.",
-						foodInteractions: "No significant interaction.",
-						prices: [
-							{
-								name: "Amazon Pharmacy",
-								price: 120,
-								availability: "In Stock",
-								delivery: "2 days",
-								url: `https://www.amazon.in/s?k=${encodeURIComponent(med.medicineName)}`,
-								logoColor: "#FF9900"
-							},
-							{
-								name: "Tata 1mg",
-								price: 95,
-								availability: "In Stock",
-								delivery: "1 day",
-								url: `https://www.1mg.com/search/all?name=${encodeURIComponent(med.medicineName)}`,
-								logoColor: "#F97316"
-							},
-							{
-								name: "PharmEasy",
-								price: 102,
-								availability: "In Stock",
-								delivery: "2 days",
-								url: `https://pharmeasy.in/search/all?searchTextField=${encodeURIComponent(med.medicineName)}`,
-								logoColor: "#10B981"
-							}
-						]
-					});
+					if (med && med.medicineName) {
+						const medId = `${data._id}-med-${idx}`;
+						mappedMedicines.push({
+							id: medId,
+							name: med.medicineName,
+							dosage: med.dosage || "As prescribed",
+							frequency: med.frequency || "1-0-1",
+							duration: med.duration || "N/A",
+							purpose: med.purpose || "Medical Treatment",
+							howToTake: med.beforeAfterFood || "As advised by doctor",
+							timing: med.timing || "Anytime",
+							sideEffects: med.possibleSideEffects || [],
+							warnings: med.warnings || [],
+							interactions: med.drugInteractions || [],
+							alternatives: med.alternativeMedicines || [],
+							description: `${med.genericName || med.medicineName} is used for ${med.purpose || "treatment"}.`,
+							uses: [med.purpose || "Treatment"],
+							benefits: ["Effective relief"],
+							storage: "Store in a cool dry place.",
+							pregnancy: "Consult doctor.",
+							alcohol: "Avoid alcohol.",
+							driving: "Consult doctor.",
+							kidney: "Consult doctor.",
+							liver: "Consult doctor.",
+							foodInteractions: "No significant interaction.",
+							prices: [
+								{
+									name: "Amazon Pharmacy",
+									price: 120,
+									availability: "In Stock",
+									delivery: "2 days",
+									url: getPharmacyUrl("Amazon Pharmacy", medId, med.medicineName),
+									logoColor: "#FF9900"
+								},
+								{
+									name: "Tata 1mg",
+									price: 95,
+									availability: "In Stock",
+									delivery: "1 day",
+									url: getPharmacyUrl("Tata 1mg", medId, med.medicineName),
+									logoColor: "#F97316"
+								},
+								{
+									name: "PharmEasy",
+									price: 102,
+									availability: "In Stock",
+									delivery: "2 days",
+									url: getPharmacyUrl("PharmEasy", medId, med.medicineName),
+									logoColor: "#10B981"
+								}
+							]
+						});
+					}
 				});
 				const patientName = data.ocrText?.match(/(?:Mr\.|Mrs\.|Ms\.|Patient:)\s*([A-Za-z0-9_\s]{3,25})/i)?.[1]?.trim() || (firstAnalysis?.patientAdvice ? "Patient" : "Rahul Sharma");
 				const ocrDoctorMatch = data.ocrText?.match(/(?:Dr\.|Doctor:)\s*([A-Za-z0-9_\s]{3,25})/i)?.[0]?.trim();
